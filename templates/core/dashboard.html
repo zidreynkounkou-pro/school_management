@@ -1,0 +1,24 @@
+{% extends "base.html" %}  <!-- extends = on reprend le design de base.html (header bleu, menu à gauche). On ne réécrit pas le header, c'est DRY -->
+{% block content %}  <!-- block content = on remplit le trou "content" de base.html. Tout ce qu'on met ici ira dans le <main> de base.html -->
+<h1 class="font-bold text-lg">02 - Vue générale - 2026-2027</h1>  <!-- Titre de la page, en gras -->
+
+{% if is_empty %}  <!-- if is_empty = si is_empty est True (0 élève). is_empty vient de core/views.py : is_empty = (nb_eleves == 0) -->
+<div class="bg-amber-50 border border-amber-200 p-4 rounded mt-4">  <!-- Div jaune pour l'état vide. bg-amber-50 = fond jaune clair, border = bordure -->
+  <p class="font-bold text-sm">Base vide - C'est normal !</p>  <!-- Titre du message -->
+  <p class="text-xs mt-1">Les chiffres du cahier (1 248 élèves, 45,2M, 77,7%) sont des estimations. Ils apparaîtront quand tu ajouteras des données dans /admin/</p>  <!-- Explication : les chiffres ne sont pas en dur, ils sont calculés -->
+  <p class="text-xs mt-2">👉 Va dans <a href="/admin/" class="underline font-bold">Admin → Année scolaire → Ajouter 2026-2027 → Classes → Élèves → Paiements</a></p>  <!-- Lien vers admin -->
+</div>  <!-- Fin de la div jaune -->
+{% endif %}  <!-- Fin du if. Si is_empty est False (tu as déjà des élèves), on ne montre pas ce message -->
+
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4">  <!-- grid = 4 cartes côte à côte sur ordi, 2 sur téléphone. gap-4 = espace entre les cartes -->
+  <div class="card"><div class="text-xs text-slate-400">Élèves Actifs</div><div class="text-xl font-bold">{{ nb_eleves }}</div><div class="text- text-slate-400">0 au début, augmente quand tu ajoutes</div></div>  <!-- Carte 1 : {{ nb_eleves }} = variable envoyée par views.py. Au début 0, puis 1, puis 1248. C'est dynamique -->
+  <div class="card"><div class="text-xs text-slate-400">Classes</div><div class="text-xl font-bold">{{ nb_classes }}</div></div>  <!-- Carte 2 : {{ nb_classes }} = nombre de classes -->
+  <div class="card"><div class="text-xs text-slate-400">Encaissé</div><div class="text-xl font-bold text-emerald-600">{{ total_encaisse }} FCFA</div></div>  <!-- Carte 3 : {{ total_encaisse }} = somme des paiements, en vert -->
+  <div class="card"><div class="text-xs text-slate-400">Taux paiement</div><div class="text-xl font-bold">{{ taux }}%</div><div class="text-">{{ total_encaisse }}/{{ total_attendu }}</div></div>  <!-- Carte 4 : {{ taux }} = encaissé / attendu * 100. Ex: 0% au début, 77.7% quand tu auras 35.1M -->
+</div>  <!-- Fin des 4 cartes -->
+
+<div class="card mt-4">  <!-- Carte explicative en bas. card = notre CSS dans static/css/style.css -->
+  <h3 class="font-bold text-sm">Comment les chiffres apparaissent ?</h3>  <!-- Titre -->
+  <p class="text-xs text-slate-600 mt-1">1. Tu vas dans /admin/ → Année scolaire → Crée 2026-2027 active<br>2. Classes → Crée 3ème A, capacité 45<br>3. Élèves → Ajoute OKEMBA Sarah, classe 3ème A<br>4. Paiements → Ajoute 45 000 FCFA pour Sarah → Le dashboard passe à 1 élève et 45 000 FCFA encaissé<br>Quand tu auras 1 248 élèves et 35,1M encaissé, tu retrouveras les chiffres du cahier : 77,7%</p>  <!-- Explication du dynamique. <br> = retour à la ligne -->
+</div>  <!-- Fin de la carte -->
+{% endblock %}  <!-- Fin du block content. On a fini de remplir le trou de base.html -->

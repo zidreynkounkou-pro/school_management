@@ -1,0 +1,27 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EduCongo</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body class="bg-slate-50">
+<header class="bg-[#0B1E3A] text-white p-3 flex justify-between">
+<b>EDUCONGO 2026-2027</b>
+<span class="text-sm">{{ request.user.email }} | <a href="/deconnexion/" class="underline">Déconnexion</a></span>
+</header>
+<div class="flex">
+<aside class="w-56 bg-white border-r p-3 text-sm hidden md:block">
+<a href="/dashboard/" class="block p-2 rounded bg-emerald-50 font-bold">📊 02 - Vue générale</a>
+<a href="/eleves/" class="block p-2 rounded hover:bg-slate-50">👨‍🎓 03 - Élèves</a>
+<a href="/eleves/inscription/" class="block p-2 rounded hover:bg-slate-50">📝 04 - Inscription</a>
+<a href="/admin/" class="block p-2 rounded hover:bg-slate-50">⚙️ Admin - Ajouter données</a>
+</aside>
+<main class="flex-1 p-4 md:p-6">{% block content %}{% endblock %}</main>
+</div>
+<script src="{% static 'js/main.js' %}"></script>
+</body>
+</html>

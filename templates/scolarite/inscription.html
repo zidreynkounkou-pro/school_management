@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="max-w-3xl mx-auto">
+<div class="flex items-center justify-between">
+<div>
+<h1 class="text-xl font-bold text-[#0B1E3A]">04 - Inscription d'un élève</h1>
+<p class="text-xs text-slate-500 mt-1">Année 2026-2027 • Les champs avec * sont obligatoires</p>
+</div>
+<a href="/eleves/" class="btn-secondary">← Retour liste</a>
+</div>
+{% if messages %}
+<div class="mt-4 space-y-2">
+{% for message in messages %}
+<div class="bg-emerald-50 border border-emerald-200 text-emerald-800 text-sm p-3 rounded-lg">{{ message }}</div>
+{% endfor %}
+</div>
+{% endif %}
+<form method="post" enctype="multipart/form-data" class="mt-5 space-y-5">
+{% csrf_token %}
+<div class="card">
+<p class="section-title">👤 Informations élève</p>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div class="field"><label>Nom *</label>{{ form.nom }}</div>
+<div class="field"><label>Prénom *</label>{{ form.prenom }}</div>
+<div class="field"><label>Genre *</label>{{ form.genre }}</div>
+<div class="field"><label>Date de naissance *</label>{{ form.date_naissance }}</div>
+<div class="field"><label>N° Acte de naissance</label>{{ form.acte_naissance }}</div>
+<div class="field"><label>Contact urgence *</label>{{ form.contact_urgence }}</div>
+<div class="field md:col-span-2"><label>École précédente</label>{{ form.ecole_precedente }}</div>
+</div>
+</div>
+<div class="card">
+<p class="section-title">🎓 Scolarité</p>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div class="field"><label>Classe *</label>{{ form.classe }}</div>
+<div class="field"><label>Année scolaire *</label>{{ form.annee }}</div>
+</div>
+<div class="mt-4 bg-rose-50 border border-rose-100 rounded-lg p-3 flex items-center gap-3">
+<span class="text-lg">🔒</span>
+<div class="flex-1"><label class="text-xs font-bold">Groupe sanguin - Santé mineur, Direction / Infirmerie uniquement</label></div>
+{{ form.groupe_sanguin }}
+</div>
+</div>
+<div class="card">
+<p class="section-title">👨‍👩‍👧 Tuteur 1 - Obligatoire</p>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div class="field"><label>Nom tuteur 1 *</label><input type="text" name="tuteur1_nom" required placeholder="Ex : OKEMBA" class="w-full border rounded-lg p-2 text-sm"></div>
+<div class="field"><label>Prénom tuteur 1 *</label><input type="text" name="tuteur1_prenom" required placeholder="Ex : Jean" class="w-full border rounded-lg p-2 text-sm"></div>
+<div class="field"><label>Téléphone tuteur 1 *</label><input type="text" name="tuteur1_tel" required placeholder="+242 06..." class="w-full border rounded-lg p-2 text-sm"></div>
+<div class="field"><label>Lien *</label><select name="tuteur1_lien" class="w-full border rounded-lg p-2 text-sm"><option value="Père">Père</option><option value="Mère">Mère</option><option value="Tuteur">Tuteur / Tutrice</option></select></div>
+</div>
+<div id="tuteur2" class="hidden mt-4 pt-4 border-t border-dashed">
+<p class="text-sm font-bold mb-3">Tuteur 2 - Optionnel</p>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div class="field"><label>Nom tuteur 2</label><input type="text" name="tuteur2_nom" placeholder="Ex : OKEMBA" class="w-full border rounded-lg p-2 text-sm"></div>
+<div class="field"><label>Prénom tuteur 2</label><input type="text" name="tuteur2_prenom" placeholder="Ex : Marie" class="w-full border rounded-lg p-2 text-sm"></div>
+<div class="field"><label>Téléphone tuteur 2</label><input type="text" name="tuteur2_tel" placeholder="+242 06..." class="w-full border rounded-lg p-2 text-sm"></div>
+<div class="field"><label>Lien</label><select name="tuteur2_lien" class="w-full border rounded-lg p-2 text-sm"><option value="Mère">Mère</option><option value="Père">Père</option><option value="Tuteur">Tuteur / Tutrice</option></select></div>
+</div>
+</div>
+<button type="button" onclick="document.getElementById('tuteur2').classList.toggle('hidden')" class="btn-secondary mt-4">+ 2e tuteur</button>
+</div>
+<div class="card">
+<p class="section-title">📎 Pièces jointes</p>
+<div class="border-2 border-dashed border-slate-200 rounded-lg p-6 text-center bg-slate-50">
+<p class="text-sm text-slate-600">Glisse tes pièces ici (Acte, Photo) ou clique pour choisir</p>
+<input type="file" name="pieces" multiple class="mt-3 text-sm">
+</div>
+</div>
+<button type="submit" class="btn-primary">✅ Inscrire l'élève</button>
+<p class="text- text-center text-slate-400">Matricule généré automatiquement : EC-2026-XXXX</p>
+</form>
+</div>
+{% endblock %}

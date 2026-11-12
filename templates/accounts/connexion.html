@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Connexion - EduCongo</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body class="bg-slate-100 min-h-screen flex items-center justify-center p-4">
+<div class="bg-white w-full max-w-sm rounded-xl shadow p-6">
+<div class="text-center">
+<div class="text-3xl font-bold text-[#0B1E3A]">EDUCONGO</div>
+<div class="text-xs text-slate-500 mt-1">Année 2026-2027 - Brazzaville</div>
+</div>
+<h1 class="font-bold text-center mt-4">Connexion</h1>
+{% if messages %}
+<div class="mt-3">
+{% for message in messages %}
+<div class="bg-red-50 border border-red-200 text-red-700 text-xs p-2 rounded">{{ message }}</div>
+{% endfor %}
+</div>
+{% endif %}
+<form method="post" class="mt-4 space-y-3">
+{% csrf_token %}
+<div>
+<label class="text-xs font-bold">Email ou téléphone</label>
+<input type="text" name="identifiant" required placeholder="direction@ecole.cg ou 06 123 45 67" class="w-full border rounded p-2 text-sm mt-1">
+</div>
+<div>
+<label class="text-xs font-bold">Mot de passe</label>
+<input type="password" name="password" required placeholder="••••••••" class="w-full border rounded p-2 text-sm mt-1">
+</div>
+<button type="submit" class="w-full bg-[#0B1E3A] text-white rounded p-2 text-sm font-bold">Se connecter</button>
+</form>
+<div class="text- text-slate-500 mt-4 text-center">
+</div>
+</div>
+</body>
+</html>
